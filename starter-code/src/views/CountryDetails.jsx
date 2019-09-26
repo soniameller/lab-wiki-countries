@@ -6,20 +6,24 @@ import { Link } from "react-router-dom";
 export default class CountryDetails extends Component {
   constructor(props) {
     super(props);
-    this.state = { country: null };
+    this.state = {
+      country: null
+    };
 
     this.cca3ToCountry = this.cca3ToCountry.bind(this);
   }
 
-  cca3ToCountry(cca3) {
-    return countries.find(country => country.cca3 === cca3);
-  }
-
+//This static is used to update the information depending on the params. The component doesnt mount again by itself in the same route
   static getDerivedStateFromProps(props, state) {
     const country = countries.find(
       country => country.cca3 === props.match.params.cca3
     );
     return { country };
+  }
+
+  //This is just to display the borders with the full name instead of the cca3 🙃
+  cca3ToCountry(cca3) {
+    return countries.find(country => country.cca3 === cca3);
   }
 
   render() {
