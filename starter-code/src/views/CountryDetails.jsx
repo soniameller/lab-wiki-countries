@@ -13,12 +13,11 @@ export default class CountryDetails extends Component {
     this.cca3ToCountry = this.cca3ToCountry.bind(this);
   }
 
-//This static is used to update the information depending on the params. The component doesnt mount again by itself in the same route
-  static getDerivedStateFromProps(props, state) {
-    const country = countries.find(
-      country => country.cca3 === props.match.params.cca3
-    );
-    return { country };
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.match.params.cca3 !== this.props.match.params.cca3 || !this.state.country){
+      const country = countries.find(country => country.cca3 === this.props.match.params.cca3)
+      this.setState({country})
+    }
   }
 
   //This is just to display the borders with the full name instead of the cca3 🙃
